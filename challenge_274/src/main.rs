@@ -12,10 +12,12 @@ fn main() {
 
     //for each index in indexes, select the word at the index and get the first
     //char in the word. Collect the resulting chars into a string.
-    let output = indexes.iter()
-                        .filter_map(|index| words.get(index % words.len() - 1))
-                        .filter_map(|word| word.chars().nth(0))
-                        .collect::<String>();
+    //the calculated index is the result of bounding it to the length of `words`
+    //and subtracting 1. The - 1 is because Beale used 1 based indexing, not 0
+    let output: String = indexes.iter()
+                            .filter_map(|index| words.get(index % words.len() - 1))
+                            .filter_map(|word| word.chars().nth(0))
+                            .collect();
                         
     println!("\n{}\n", output);
 }
