@@ -3,7 +3,7 @@ const CIPHER: &'static str = include_str!("../input/cipher.txt");
 
 fn main() {
     //convert the ciphertext input from "index, index, index, ..." to [usize; index, index, index,...]
-    let indexes: Vec<usize> = CIPHER.split(",")
+    let indexes: Vec<usize> = CIPHER.split(',')
                         .map(|number_str| number_str.trim())
                         .filter_map(|number| number.parse().ok())
                         .collect();
