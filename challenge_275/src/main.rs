@@ -10,12 +10,12 @@ fn main() {
     println!("Element symbol validation:");
     tests.iter()
         .map(|(name, symbol)| (name, symbol, is_valid(name, symbol)))
-        .for_each(|result| println!("{} => {}? {}", result.0, result.1, result.2));
+        .for_each(|result| println!("{} \t=> {}? {}", result.0, result.1, result.2));
 
     println!("\nPossible symbols for each element:");
     tests.iter()
         .map(|(name, _)| (name, get_distinct_symbols(name)))
-        .for_each(|result| println!("Element \"{}\": {:?}\n", result.0, result.1));
+        .for_each(|result| println!("Element \"{}\" has {} valid symbols", result.0, result.1.len()));
 }
 
 //Steps:
@@ -44,18 +44,15 @@ fn is_valid(name: &str, symbol: &str) -> bool {
 //every char in the name after the first chat. Format the first to uppercase,
 //and then insert into the hashset.
 use std::collections::HashSet;
-fn get_distinct_symbols(name: &str) -> HashSet<String> {
-    let mut symbols: HashSet<String> = HashSet::new();
+fn get_distinct_symbols(name: &str) -> HashSet<(char, char)> {
+    let mut symbols: HashSet<(char, char)> = HashSet::new();
     
     for first in 0..name.len() - 1 {
         for second in first + 1..name.len() {
             let ch1 = name.to_uppercase().chars().nth(first).unwrap();
             let ch2 = name.to_lowercase().chars().nth(second).unwrap();
             
-            let mut symbol = String::new();
-            symbol.push(ch1);
-            symbol.push(ch2);
-            symbols.insert(symbol);
+            symbols.insert((ch1, ch2));
         }
     }
 
