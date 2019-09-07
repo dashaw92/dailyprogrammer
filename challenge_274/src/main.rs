@@ -1,5 +1,5 @@
-const DECLARATION: &'static str = include_str!("../input/declaration.txt");
-const CIPHER: &'static str = include_str!("../input/cipher.txt");
+const DECLARATION: &str = include_str!("../input/declaration.txt");
+const CIPHER: &str = include_str!("../input/cipher.txt");
 
 fn main() {
     //convert the ciphertext input from "index, index, index, ..." to [usize; index, index, index,...]
