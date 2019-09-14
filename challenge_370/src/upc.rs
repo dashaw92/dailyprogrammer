@@ -30,10 +30,9 @@ fn sum_even(digits: &[u32]) -> u32 {
 pub fn calc_check_digit(input: &'_ str) -> u32 {
     let digits = to_upc(input);
 
-    let step1 = sum_odd(&digits);
-    let step2 = step1 * 3;
-    let step3 = sum_even(&digits);
-    let total = step2 + step3;
+    let step1 = sum_odd(&digits) * 3;
+    let step2 = sum_even(&digits);
+    let total = step1 + step2;
 
     let remainder = total % 10;
 
