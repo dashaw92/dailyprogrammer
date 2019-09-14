@@ -20,7 +20,7 @@ fn to_upc(input: &'_ str) -> Vec<u32> {
 }
 
 fn sum_odd(digits: &[u32]) -> u32 {
-    digits.iter().step_by(2).sum()
+    digits.iter().step_by(2).map(|x| x * 3).sum()
 }
 
 fn sum_even(digits: &[u32]) -> u32 {
@@ -29,11 +29,7 @@ fn sum_even(digits: &[u32]) -> u32 {
 
 pub fn calc_check_digit(input: &'_ str) -> u32 {
     let digits = to_upc(input);
-
-    let step1 = sum_odd(&digits) * 3;
-    let step2 = sum_even(&digits);
-    let total = step1 + step2;
-
+    let total = sum_odd(&digits) + sum_even(&digits);
     let remainder = total % 10;
 
     if remainder == 0 {
