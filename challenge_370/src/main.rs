@@ -2,7 +2,7 @@ mod upc;
 
 fn main() {
     let input = std::env::args().nth(1).expect("arg1 should be the UPC to calculate the check digit for");
-    println!("{}{}", input, upc::calc_check_digit(&input));
+    println!("{}", upc::calc_check_digit(&input));
 }
 
 #[cfg(test)]
