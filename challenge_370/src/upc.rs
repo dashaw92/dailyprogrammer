@@ -10,15 +10,9 @@ fn to_upc(input: &'_ str) -> Vec<u32> {
         return digits
     }
 
-    //pad the vec to be 11 digits long. A upc is 12 digits
-    // while digits.len() < 11 {
-    //     digits.insert(0, 0);
-    // }
-
-    //I realized that the padding above is kinda pointless?
-    //It doesn't matter if the vec is 11 digits or n, as long
-    //as it's odd. Padding it to 11 long with 0s is pointless:
-    //0 + n = n
+    // It doesn't matter if the vec is 11 digits or n, as long
+    // as it's odd. Padding it to 11 long with 0s is pointless:
+    // 0 + n = n
     if digits.len() < 11 && digits.len() & 1 != 1 {
         digits.insert(0, 0);
     }
@@ -26,17 +20,23 @@ fn to_upc(input: &'_ str) -> Vec<u32> {
     digits
 }
 
-fn sum_odd(digits: &[u32]) -> u32 {
-    digits.iter().step_by(2).map(|x| x * 3).sum()
-}
+// Rather than go through two functions to get the sum, we'll
+// just zip digits iterator with a repeating 3, 1, 3, 1, ... iterator, 
+// and then multiply each digit by the corresponding multiplier.
+// Starts with 3 because the first digit is considered an odd numbered digit
+// in the UPC.
+fn sum(digits: &[u32]) -> u32 {
+    let multipliers = [3, 1].iter().cycle();
 
-fn sum_even(digits: &[u32]) -> u32 {
-    digits.iter().skip(1).step_by(2).sum()
+    digits.iter()
+        .zip(multipliers)
+        .map(|(digit, factor)| digit * factor)
+        .sum()
 }
 
 pub fn calc_check_digit(input: &'_ str) -> u32 {
     let digits = to_upc(input);
-    let total = sum_odd(&digits) + sum_even(&digits);
+    let total = sum(&digits);
     let remainder = total % 10;
 
     if remainder == 0 {
