@@ -25,3 +25,16 @@ pub fn persistance(mut number: u128) -> usize {
 
     iterations
 }
+
+#[cfg(test)]
+mod tests {
+    use super::persistance;
+
+    #[test]
+    fn test() {
+        assert_eq!(persistance(13), 1);
+        assert_eq!(persistance(1234), 2);
+        assert_eq!(persistance(9876), 2);
+        assert_eq!(persistance(199), 3);
+    }
+}
